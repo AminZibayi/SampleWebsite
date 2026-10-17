@@ -1,35 +1,203 @@
 // @ts-check
 /**
- * @fileoverview Login page for customer/admin with demo-login actions.
+ * @fileoverview Unified Authentication Page for Customer and Administrator with 1-Click Demo Logins.
+ *
+ * Architectural Layer: Presentation / Authentication Page.
+ * Pattern: Page Component + Strategy Pattern.
+ *
+ * Educational Concept: Mock Authentication & RBAC Handshake:
+ * In modern frontend architectures, login does not perform arbitrary DOM mutations;
+ * instead, it invokes `authService.login()`, which issues a simulated session token.
+ * Upon success, the `EventBus` emits `auth:changed`, allowing the Header, Router guards,
+ * and profile dashboard to synchronize their state automatically.
  */
+
 import { Component } from '../../core/Component.js';
 
 export class AuthPage extends Component {
-  constructor(root, deps) { super(root); this.deps = deps; }
-  render() {
-    return `<section class="card stack"><h1>ورود / ثبت‌نام</h1><p class="muted">در این پروژه، نشست کاربر شبیه JWT در localStorage نگه‌داری می‌شود (نسخهٔ آموزشی).</p><form id="login-form" class="stack"><input name="email" type="email" placeholder="ایمیل" required/><input name="password" type="password" placeholder="رمز عبور" required/><button class="btn btn-primary">ورود</button></form><div class="cluster"><button class="btn" data-demo="admin">ورود سریع به عنوان ادمین</button><button class="btn" data-demo="customer">ورود سریع به عنوان مشتری</button></div></section>`;
+  /**
+   * @param {Element|null} root
+   * @param {Object} deps
+   * @param {import('../../core/EventBus.js').EventBus} deps.bus
+   * @param {import('../../services/AuthService.js').AuthService} deps.authService
+   */
+  constructor(root, deps) {
+    super(root);
+    this.deps = deps;
+    this.selectedRole = 'customer';
   }
+
+  render() {
+    return `
+      <div class="auth-page-container">
+        <div class="auth-card card">
+          <!-- Header and Badge -->
+          <div class="auth-card-header">
+            <span class="badge badge-hero">ورود امن به سامانه</span>
+            <h1 class="auth-title">ورود به حساب کاربری</h1>
+            <p class="muted text-sm">
+              برای دسترسی به پنل مدیریت یا تکمیل خرید و مشاهده سوابق، وارد حساب خود شوید.
+            </p>
+          </div>
+
+          <!-- Educational Callout Box -->
+          <div class="auth-educational-callout">
+            <span class="callout-icon">💡</span>
+            <div class="callout-body">
+              <strong>شبیه‌ساز احراز هویت بدون وابستگی به بک‌اند:</strong>
+              <p class="text-sm muted">
+                در این پروژه، فرایند لاگین از الگوی Service Layer بهره می‌برد و یک توکن شبیه‌سازی‌شده JWT را در StorageService ثبت می‌کند تا Route Guards بتوانند دسترسی به مسیرهای محافظت‌شده را مدیریت کنند.
+              </p>
+            </div>
+          </div>
+
+          <!-- Fast 1-Click Demo Buttons -->
+          <div class="demo-login-group">
+            <span class="demo-label text-sm muted">ورود سریع آزمایشی برای ارزیابی سامانه:</span>
+            <div class="demo-buttons-grid">
+              <button class="btn btn-secondary btn-demo" data-act="demo-admin">
+                <span class="demo-icon">🛡️</span>
+                <span>ورود سریع به عنوان مدیر سیستم (Admin)</span>
+              </button>
+              <button class="btn btn-secondary btn-demo" data-act="demo-customer">
+                <span class="demo-icon">👤</span>
+                <span>ورود سریع به عنوان مشتری نمونه (Customer)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Role Selector Tabs -->
+          <div class="auth-tabs-row" role="tablist">
+            <button
+              class="auth-tab-btn ${this.selectedRole === 'customer' ? 'is-active' : ''}"
+              data-act="switch-tab"
+              data-role="customer"
+              role="tab"
+            >
+              حساب کاربری مشتری
+            </button>
+            <button
+              class="auth-tab-btn ${this.selectedRole === 'admin' ? 'is-active' : ''}"
+              data-act="switch-tab"
+              data-role="admin"
+              role="tab"
+            >
+              حساب مدیریت سیستم
+            </button>
+          </div>
+
+          <!-- Standard Credentials Form -->
+          <form id="auth-credentials-form" class="stack gap-md">
+            <div class="form-group">
+              <label for="auth-email" class="form-label">آدرس ایمیل:</label>
+              <input
+                id="auth-email"
+                name="email"
+                type="email"
+                class="input-field"
+                placeholder="name@example.com"
+                required
+                autocomplete="email"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="auth-password" class="form-label">رمز عبور:</label>
+              <input
+                id="auth-password"
+                name="password"
+                type="password"
+                class="input-field"
+                placeholder="••••••••"
+                required
+                autocomplete="current-password"
+              />
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-submit-auth" id="btn-login-submit">
+              <span>ورود به حساب کاربری</span>
+              <span>↵</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    `;
+  }
+
   bindEvents() {
     if (!this.root) return;
-    this.root.querySelector('#login-form')?.addEventListener('submit', async (e) => {
+
+    const form = /** @type {HTMLFormElement|null} */ (this.$('#auth-credentials-form'));
+    const emailInput = /** @type {HTMLInputElement|null} */ (this.$('#auth-email'));
+    const passwordInput = /** @type {HTMLInputElement|null} */ (this.$('#auth-password'));
+
+    // Handle Form Submit
+    form?.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const fd = new FormData(/** @type {HTMLFormElement} */(e.currentTarget));
+      const submitBtn = this.$('#btn-login-submit');
+      if (submitBtn) submitBtn.setAttribute('disabled', 'true');
+
       try {
-        await this.deps.authService.login(String(fd.get('email')), String(fd.get('password')));
+        const fd = new FormData(form);
+        const email = String(fd.get('email') || '').trim();
+        const password = String(fd.get('password') || '');
+
+        const user = await this.deps.authService.login(email, password);
         this.deps.bus.emit('auth:changed');
-        location.hash = '#/products';
-      } catch (error) {
-        this.deps.bus.emit('toast:add', { kind: 'error', text: /** @type {Error} */ (error).message });
+        this.deps.bus.emit('toast:add', {
+          kind: 'success',
+          text: `خوش آمدید، ${user.name}! با موفقیت وارد شدید.`
+        });
+
+        // Navigate based on user role
+        if (user.role === 'admin') {
+          location.hash = '#/admin';
+        } else {
+          location.hash = '#/profile';
+        }
+      } catch (err) {
+        this.deps.bus.emit('toast:add', { kind: 'error', text: /** @type {Error} */ (err).message });
+      } finally {
+        if (submitBtn) submitBtn.removeAttribute('disabled');
       }
     });
-    this.root.addEventListener('click', (e) => {
-      const t = /** @type {HTMLElement} */(e.target);
-      const demo = t.closest('[data-demo]')?.getAttribute('data-demo');
-      if (!demo) return;
-      const form = /** @type {HTMLFormElement|null} */(this.root?.querySelector('#login-form'));
-      if (!form) return;
-      form.email.value = demo === 'admin' ? 'admin@example.com' : 'user@example.com';
-      form.password.value = demo === 'admin' ? 'admin123' : 'user123';
+
+    // Delegated Clicks: Demo Login and Role Tabs
+    this.listen(this.root, 'click', (e) => {
+      const target = /** @type {HTMLElement} */ (e.target);
+      const actionEl = target.closest('[data-act]');
+      if (!actionEl) return;
+
+      const act = actionEl.getAttribute('data-act');
+
+      if (act === 'demo-admin') {
+        if (emailInput && passwordInput) {
+          emailInput.value = 'admin@example.com';
+          passwordInput.value = 'admin123';
+          form?.requestSubmit();
+        }
+      } else if (act === 'demo-customer') {
+        if (emailInput && passwordInput) {
+          emailInput.value = 'user@example.com';
+          passwordInput.value = 'user123';
+          form?.requestSubmit();
+        }
+      } else if (act === 'switch-tab') {
+        this.selectedRole = actionEl.getAttribute('data-role') || 'customer';
+        this.$$('.auth-tab-btn').forEach((btn) => {
+          btn.classList.toggle('is-active', btn.getAttribute('data-role') === this.selectedRole);
+        });
+
+        if (emailInput && passwordInput) {
+          if (this.selectedRole === 'admin') {
+            emailInput.value = 'admin@example.com';
+            passwordInput.value = 'admin123';
+          } else {
+            emailInput.value = 'user@example.com';
+            passwordInput.value = 'user123';
+          }
+        }
+      }
     });
   }
 }

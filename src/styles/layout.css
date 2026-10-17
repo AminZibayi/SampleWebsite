@@ -1,7 +1,95 @@
 @layer layout {
-  #header-root, #footer-root, #app { inline-size: min(1200px, 100% - 2rem); margin-inline: auto; }
-  #app { padding-block: var(--space-6); }
-  .bento-grid { display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); }
-  .stack { display: flex; flex-direction: column; gap: var(--space-4); }
-  .cluster { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+  /* Main Container Framework */
+  #header-root,
+  #app,
+  #footer-root {
+    inline-size: min(1320px, 100% - 2.5rem);
+    margin-inline: auto;
+  }
+
+  #app {
+    padding-block: var(--space-6) var(--space-10);
+    min-block-size: 65vh;
+  }
+
+  /* Bento Grid Systems */
+  .bento-grid {
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+
+  .bento-hero-grid {
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: 2fr 1fr;
+  }
+
+  @media (width <= 900px) {
+    .bento-hero-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Magazine & Reader Layouts */
+  .magazine-grid {
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  }
+
+  .reader-layout-grid {
+    display: grid;
+    gap: var(--space-6);
+    grid-template-columns: 2.4fr 1fr;
+    align-items: start;
+  }
+
+  @media (width <= 860px) {
+    .reader-layout-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Checkout & Contact Layouts */
+  .checkout-layout,
+  .contact-grid {
+    display: grid;
+    gap: var(--space-6);
+    grid-template-columns: 1.6fr 1fr;
+    align-items: start;
+  }
+
+  @media (width <= 860px) {
+    .checkout-layout,
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Flex Helpers */
+  .stack {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .gap-xs { gap: var(--space-1); }
+  .gap-sm { gap: var(--space-2); }
+  .gap-md { gap: var(--space-4); }
+  .gap-lg { gap: var(--space-6); }
+  .gap-xl { gap: var(--space-8); }
+
+  .cluster {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .split-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+  }
 }

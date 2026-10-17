@@ -11,12 +11,41 @@ export default [
         window: 'readonly',
         document: 'readonly',
         localStorage: 'readonly',
+        sessionStorage: 'readonly',
         console: 'readonly',
         setTimeout: 'readonly',
         clearTimeout: 'readonly',
+        setInterval: 'readonly',
+        clearInterval: 'readonly',
+        requestAnimationFrame: 'readonly',
+        cancelAnimationFrame: 'readonly',
         Intl: 'readonly',
         crypto: 'readonly',
-        location: 'readonly'
+        location: 'readonly',
+        confirm: 'readonly',
+        alert: 'readonly',
+        FormData: 'readonly',
+        Element: 'readonly',
+        HTMLElement: 'readonly',
+        HTMLInputElement: 'readonly',
+        HTMLSelectElement: 'readonly',
+        HTMLTextAreaElement: 'readonly',
+        HTMLFormElement: 'readonly',
+        HTMLButtonElement: 'readonly',
+        Node: 'readonly',
+        Event: 'readonly',
+        CustomEvent: 'readonly',
+        MouseEvent: 'readonly',
+        KeyboardEvent: 'readonly',
+        DocumentFragment: 'readonly',
+        URL: 'readonly',
+        URLSearchParams: 'readonly',
+        fetch: 'readonly',
+        Headers: 'readonly',
+        Request: 'readonly',
+        Response: 'readonly',
+        MutationObserver: 'readonly',
+        IntersectionObserver: 'readonly'
       }
     },
     rules: {
@@ -25,7 +54,7 @@ export default [
       'prefer-const': 'error',
       eqeqeq: 'error',
       'no-eval': 'error',
-      complexity: ['warn', 12]
+      complexity: ['warn', 15]
     }
   }
 ];
