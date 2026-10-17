@@ -1,0 +1,19 @@
+@layer components {
+  .glass {
+    background: color-mix(in srgb, var(--color-surface) 84%, transparent);
+    backdrop-filter: blur(10px);
+    border: var(--border-default);
+    border-radius: var(--radius-md);
+  }
+  .header { position: sticky; inset-block-start: .5rem; z-index: 10; padding: var(--space-4); margin-block: var(--space-4); }
+  .card { background: var(--color-surface); border: var(--border-default); border-radius: var(--radius-md); padding: var(--space-4); }
+  .btn { border: var(--border-default); background: var(--color-surface-alt); color: var(--color-text); border-radius: .75rem; padding: .5rem .9rem; cursor: pointer; }
+  .btn-primary { background: var(--color-primary); color: #fff; border-color: transparent; }
+  .toolbar { display: grid; grid-template-columns: repeat(auto-fit,minmax(160px,1fr)); gap: var(--space-3); }
+  .drawer { position: fixed; inset-block: 0; inset-inline-end: 0; inline-size: min(420px, 100%); transform: translateX(102%); transition: transform .24s ease; background: var(--color-surface); border-inline-start: var(--border-default); padding: var(--space-4); }
+  .drawer[data-open='true'] { transform: translateX(0); }
+  .modal-backdrop { position: fixed; inset: 0; background: rgb(0 0 0 / 50%); display: grid; place-items: center; }
+  .toast { background: var(--color-surface); border-inline-start: 4px solid var(--color-accent); padding: .6rem .8rem; border-radius: .75rem; margin-block-start: .5rem; border: var(--border-default); }
+  .toast.error { border-inline-start-color: var(--color-danger); }
+  .badge { background: var(--color-accent); color: #fff; border-radius: 999px; padding: .1rem .5rem; }
+}
