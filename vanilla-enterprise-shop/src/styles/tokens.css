@@ -1,0 +1,31 @@
+@layer tokens {
+  :root {
+    --color-bg: #f5f5f7;
+    --color-surface: #fff;
+    --color-surface-alt: #f0f1f3;
+    --color-text: #131314;
+    --color-muted: #5f6368;
+    --color-primary: #3f51f5;
+    --color-accent: #18a999;
+    --color-danger: #d93025;
+    --border-default: 1px solid #d3d5d8;
+    --radius-md: 1rem;
+    --space-2: .5rem;
+    --space-3: .75rem;
+    --space-4: 1rem;
+    --space-6: 1.5rem;
+    --shadow-md: 0 10px 35px rgb(0 0 0 / 10%);
+    --font-base: 'Vazirmatn', system-ui, sans-serif;
+    color-scheme: light;
+  }
+
+  [data-theme='dark'] {
+    --color-bg: #0f1217;
+    --color-surface: #171b22;
+    --color-surface-alt: #212834;
+    --color-text: #eff1f3;
+    --color-muted: #c0c5ce;
+    --border-default: 1px solid #2a3443;
+    color-scheme: dark;
+  }
+}

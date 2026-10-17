@@ -1,0 +1,7 @@
+@layer layout {
+  #header-root, #footer-root, #app { inline-size: min(1200px, 100% - 2rem); margin-inline: auto; }
+  #app { padding-block: var(--space-6); }
+  .bento-grid { display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); }
+  .stack { display: flex; flex-direction: column; gap: var(--space-4); }
+  .cluster { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+}

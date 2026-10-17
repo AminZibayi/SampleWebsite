@@ -1,0 +1,12 @@
+{
+  "extends": ["stylelint-config-standard"],
+  "rules": {
+    "custom-property-pattern": "^color|^space|^radius|^shadow|^font|^transition|^z|^border|^container",
+    "declaration-property-value-disallowed-list": {
+      "/^margin|padding|inset|border-inline|border-block/": ["/left|right|top|bottom/"]
+    },
+    "declaration-block-single-line-max-declarations": null,
+    "declaration-empty-line-before": null,
+    "rule-empty-line-before": null
+  }
+}
