@@ -191,7 +191,7 @@ export class CheckoutPage extends Component {
 
               <!-- Promo Code Box -->
               <div class="promo-input-box card">
-                <label for="promo-input" class="form-label">کد تخفیف دانشجویی یا همایش:</label>
+                <label for="promo-input" class="form-label">کد تخفیف:</label>
                 <div class="promo-input-row">
                   <input
                     id="promo-input"
@@ -251,7 +251,7 @@ export class CheckoutPage extends Component {
             </div>
 
             <div class="security-guarantee-note muted text-sm">
-              🛡️ تمامی تراکنش‌ها توسط پروتکل شاپرک پردازش شده و دارای ضمانت بازگشت وجه تا ۷ روز می‌باشند.
+              🛡️ تمامی پرداخت‌ها در بستر شاپرک پردازش می‌شوند و تا ۷ روز ضمانت بازگشت وجه دارند.
             </div>
           </aside>
         </div>

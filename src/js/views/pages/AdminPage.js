@@ -67,7 +67,7 @@ export class AdminPage extends Component {
             data-act="nav-products"
             role="tab"
           >
-            <span>📦 مدیریت کاتالوگ محصولات (CRUD)</span>
+            <span>📦 مدیریت کاتالوگ و موجودی محصولات</span>
           </button>
           <button
             class="admin-tab-btn ${this.activeSection === 'orders' ? 'is-active' : ''}"
@@ -81,7 +81,7 @@ export class AdminPage extends Component {
             data-act="nav-feedback"
             role="tab"
           >
-            <span>📬 صندوق نقدها و پیشنهادات فوتر</span>
+            <span>📬 صندوق دیدگاه‌ها و پیشنهادات</span>
           </button>
         </div>
 

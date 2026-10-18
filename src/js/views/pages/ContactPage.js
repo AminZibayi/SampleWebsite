@@ -118,7 +118,7 @@ export class ContactPage extends Component {
                   <!-- Location Pin -->
                   <circle cx="260" cy="140" r="14" fill="var(--color-primary)" opacity="0.25" />
                   <circle cx="260" cy="140" r="7" fill="var(--color-primary)" />
-                  <text x="260" y="175" fill="var(--color-text)" font-family="system-ui" font-size="12" font-weight="bold" text-anchor="middle">شوروم مرکزی VES</text>
+                  <text x="260" y="175" fill="var(--color-text)" font-family="system-ui" font-size="12" font-weight="bold" text-anchor="middle">شوروم مرکزی ویستا</text>
                 </svg>
               </div>
               <div class="contact-details-list text-sm stack gap-xs muted">
@@ -158,7 +158,7 @@ export class ContactPage extends Component {
               </button>
               <div class="faq-content hidden">
                 <p class="muted">
-                  بله، مطابق قوانین تجارت الکترونیک، تمامی محصولات آکبند تا ۷ روز تقویمی بدون قید و شرط و در صورت باز نشدن پلمپ کارخانه‌ای قابل استرداد یا تعویض می‌باشند.
+                  بله، مطابق قوانین تجارت الکترونیک، تمامی محصولات آکبند تا ۷ روز در صورت باز نشدن پلمپ کارخانه‌ای قابل تعویض یا استرداد وجه هستند.
                 </p>
               </div>
             </div>

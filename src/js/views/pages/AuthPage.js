@@ -40,28 +40,28 @@ export class AuthPage extends Component {
             </p>
           </div>
 
-          <!-- Educational Callout Box -->
+          <!-- Account Security Callout Box -->
           <div class="auth-educational-callout">
-            <span class="callout-icon">💡</span>
+            <span class="callout-icon">🔒</span>
             <div class="callout-body">
-              <strong>شبیه‌ساز احراز هویت بدون وابستگی به بک‌اند:</strong>
+              <strong>امنیت و حفظ حریم خصوصی:</strong>
               <p class="text-sm muted">
-                در این پروژه، فرایند لاگین از الگوی Service Layer بهره می‌برد و یک توکن شبیه‌سازی‌شده JWT را در StorageService ثبت می‌کند تا Route Guards بتوانند دسترسی به مسیرهای محافظت‌شده را مدیریت کنند.
+                اطلاعات کاربری و سوابق سفارش‌های شما با پروتکل‌های امنیتی روز محافظت می‌شوند.
               </p>
             </div>
           </div>
 
           <!-- Fast 1-Click Demo Buttons -->
           <div class="demo-login-group">
-            <span class="demo-label text-sm muted">ورود سریع آزمایشی برای ارزیابی سامانه:</span>
+            <span class="demo-label text-sm muted">ورود سریع با حساب‌های پیش‌فرض:</span>
             <div class="demo-buttons-grid">
               <button class="btn btn-secondary btn-demo" data-act="demo-admin">
                 <span class="demo-icon">🛡️</span>
-                <span>ورود سریع به عنوان مدیر سیستم (Admin)</span>
+                <span>ورود به عنوان مدیر سیستم</span>
               </button>
               <button class="btn btn-secondary btn-demo" data-act="demo-customer">
                 <span class="demo-icon">👤</span>
-                <span>ورود سریع به عنوان مشتری نمونه (Customer)</span>
+                <span>ورود به عنوان مشتری</span>
               </button>
             </div>
           </div>

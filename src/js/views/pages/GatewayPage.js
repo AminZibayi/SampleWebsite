@@ -73,7 +73,7 @@ export class GatewayPage extends Component {
           <div class="gateway-summary-banner">
             <div class="merchant-info">
               <span class="muted text-sm">پذیرنده اینترنتی:</span>
-              <strong>فروشگاه و مجله تخصصی تکنولوژی VES</strong>
+              <strong>فروشگاه تخصصی سخت‌افزار ویستا</strong>
             </div>
             <div class="payable-amounts">
               <div class="amount-rial">
@@ -106,7 +106,7 @@ export class GatewayPage extends Component {
                 />
                 <span class="card-bank-icon" id="card-bank-icon">💳</span>
               </div>
-              <small class="muted text-sm">شماره کارت نمونه با الگوریتم استاندارد لونا (Luhn) سازگار است.</small>
+              <small class="muted text-sm">شماره کارت آزمایشی برای تکمیل فرایند خرید وارد شده است.</small>
             </div>
 
             <!-- CVV2 and Expiration Date -->
@@ -374,7 +374,7 @@ export class GatewayPage extends Component {
             <div class="receipt-header">
               <div class="receipt-success-icon">✓</div>
               <h2 class="receipt-title">تراکنش با موفقیت انجام شد</h2>
-              <p class="muted text-sm">رسید الکترونیکی پرداخت شاپرک — فروشگاه تخصصی تکنولوژی</p>
+              <p class="muted text-sm">رسید الکترونیکی پرداخت شاپرک — فروشگاه تخصصی سخت‌افزار ویستا</p>
             </div>
 
             <div class="receipt-details-grid">

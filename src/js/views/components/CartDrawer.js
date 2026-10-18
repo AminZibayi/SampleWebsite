@@ -110,7 +110,7 @@ export class CartDrawer extends Component {
     footerContainer.innerHTML = `
       <div class="promo-teaser-box">
         <span class="promo-tag">تخفیف ویژه</span>
-        <span>کد تخفیف دانشجویی: <code>LEARN10</code> (۱۰٪ کسر در تسویه‌حساب)</span>
+        <span>کد تخفیف: <code>LEARN10</code> (۱۰٪ کسر در مرحله تسویه‌حساب)</span>
       </div>
       <div class="drawer-summary-row">
         <span>مجموع اقلام (${toPersianDigits(itemCount)} کالا):</span>
@@ -130,6 +130,13 @@ export class CartDrawer extends Component {
     // Delegated click handler on the drawer root
     this.listen(this.root, 'click', async (e) => {
       const target = /** @type {HTMLElement} */ (e.target);
+
+      // Dismiss drawer if backdrop was clicked directly
+      if (target.classList.contains('drawer-backdrop')) {
+        this.deps.store.set('cartOpen', false);
+        return;
+      }
+
       const actionBtn = target.closest('[data-act]');
       if (!actionBtn) return;
 
@@ -140,7 +147,6 @@ export class CartDrawer extends Component {
         this.deps.store.set('cartOpen', false);
         return;
       }
-
       if (!id) return;
 
       const cart = this.deps.orderService.getCart();
@@ -166,6 +172,19 @@ export class CartDrawer extends Component {
     this.listen(document, 'keydown', (e) => {
       const keyboardEvent = /** @type {KeyboardEvent} */ (e);
       if (keyboardEvent.key === 'Escape' && this.isOpen) {
+        this.deps.store.set('cartOpen', false);
+      }
+    });
+    // Close drawer on SPA route navigation or hash change
+    this.unsubs.push(
+      this.deps.bus.on('router:navigate', () => {
+        if (this.isOpen) {
+          this.deps.store.set('cartOpen', false);
+        }
+      })
+    );
+    this.listen(window, 'hashchange', () => {
+      if (this.isOpen) {
         this.deps.store.set('cartOpen', false);
       }
     });

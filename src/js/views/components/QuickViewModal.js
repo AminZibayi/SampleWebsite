@@ -62,7 +62,7 @@ export class QuickViewModal extends Component {
    */
   buildModalHtml(product, inWishlist, effectivePrice, specsHtml) {
     return `
-      <div class="modal-backdrop is-active" data-act="backdrop">
+      <div class="modal-backdrop is-active">
         <div
           class="modal-dialog bento-modal"
           role="dialog"
@@ -177,11 +177,18 @@ export class QuickViewModal extends Component {
    */
   async handleBackdropClick(e, product, container) {
     const target = /** @type {HTMLElement} */ (e.target);
+
+    // Dismiss if user clicked directly on the modal backdrop
+    if (target.classList.contains('modal-backdrop')) {
+      this.close();
+      return;
+    }
+
     const actEl = target.closest('[data-act]');
     if (!actEl) return;
 
     const act = actEl.getAttribute('data-act');
-    if (act === 'close' || act === 'backdrop') {
+    if (act === 'close') {
       this.close();
     } else if (act === 'qty-inc' || act === 'qty-dec') {
       this.handleQtyStep(act, product, container);
@@ -246,6 +253,15 @@ export class QuickViewModal extends Component {
       }
     });
 
+    // Dismiss dialog on SPA route changes
+    this.unsubs.push(
+      this.deps.bus.on('router:navigate', () => {
+        this.close();
+      })
+    );
+    this.listen(window, 'hashchange', () => {
+      this.close();
+    });
     this.unsubs.push(
       this.deps.bus.on('product:quickView', async (productId) => {
         if (!productId) {

@@ -710,13 +710,23 @@
     box-shadow: var(--shadow-lg);
     display: flex;
     flex-direction: column;
-    transform: translateX(102%);
-    transition: transform var(--transition-normal);
+    transform: translateX(-105%);
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+      transform var(--transition-normal),
+      visibility var(--transition-normal);
     z-index: calc(var(--z-drawer) + 1);
+  }
+
+  [dir='ltr'] .drawer-panel {
+    transform: translateX(105%);
   }
 
   .drawer-panel.is-open {
     transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
   }
 
   .drawer-header {
@@ -835,6 +845,19 @@
     border-radius: var(--radius-pill);
     inline-size: 2.2rem;
     block-size: 2.2rem;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    z-index: 10;
+    font-size: 1.1rem;
+    transition:
+      background-color var(--transition-fast),
+      transform var(--transition-fast);
+  }
+
+  .btn-modal-close:hover {
+    background-color: var(--color-surface-raised);
+    transform: scale(1.08);
   }
 
   .modal-grid {

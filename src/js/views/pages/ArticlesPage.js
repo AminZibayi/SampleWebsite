@@ -126,7 +126,7 @@ export class ArticlesPage extends Component {
     mount.innerHTML = `
       <section class="stack gap-xl">
         <header class="editorial-hero card">
-          <span class="badge badge-hero">تحریریه مهندسی و معماری وب</span>
+          <span class="badge badge-hero">بررسی و تحلیل سخت‌افزار</span>
           <h1 class="editorial-hero-title">مجله تخصصی سخت‌افزار، ارگونومی و تکنولوژی</h1>
           <p class="muted">مجموعه مقالات تحلیلی، استانداردهای طراحی محیط کار و راهنماهای انتخاب ابزار مهندسی.</p>
         </header>

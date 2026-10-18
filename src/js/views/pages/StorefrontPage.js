@@ -265,7 +265,15 @@ export class StorefrontPage extends Component {
         <article class="product-card card" data-id="${p.id}">
           <!-- Card Image & Floating Badges -->
           <div class="product-card-top">
-            <img src="${p.image}" alt="${escapeHtml(p.name)}" class="product-card-img" loading="lazy" />
+            <img
+              src="${p.image}"
+              alt="${escapeHtml(p.name)}"
+              class="product-card-img"
+              loading="lazy"
+              data-act="quick-view"
+              data-id="${p.id}"
+              style="cursor: pointer;"
+            />
             <button
               class="btn-card-wishlist ${inWishlist ? 'is-wished' : ''}"
               data-act="toggle-wishlist"

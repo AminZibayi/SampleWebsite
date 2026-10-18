@@ -64,8 +64,8 @@ export class Header extends Component {
         <!-- Brand & Main Nav Links -->
         <div class="nav-start">
           <a href="#/" class="brand">
-            <span class="brand-badge">VES</span>
-            <span class="brand-title">فروشگاه و تحریریه</span>
+            <span class="brand-badge">ویستا</span>
+            <span class="brand-title">فروشگاه سخت‌افزار و تحریریه</span>
           </a>
 
           <nav class="nav-links" aria-label="ناوبری اصلی">

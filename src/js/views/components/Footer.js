@@ -108,7 +108,7 @@ export class Footer extends Component {
               <span class="card-badge badge-trust">اصالت و اعتبار</span>
               <h3 id="footer-trust-title">مجوزها و نمادهای الکترونیکی</h3>
             </div>
-            <p class="muted text-sm">فروشگاه مجهز به گواهینامه معتبر SSL و سامانه پرداخت شاپرک می‌باشد.</p>
+            <p class="muted text-sm">دارای نماد اعتماد الکترونیکی و متصل به درگاه امن شاپرک با پروتکل SSL.</p>
 
             <div class="trust-emblems-grid">
               <button class="trust-badge-btn" data-act="open-trust" data-badge="enamad" title="مشاهده شناسنامه نماد اعتماد">
@@ -138,11 +138,10 @@ export class Footer extends Component {
         <!-- Bottom Copyright & Educational Credits -->
         <div class="footer-bottom-bar">
           <p>
-            توسعه‌یافته با ۱۰۰٪ کدهای استاندارد <strong>Vanilla HTML5, CSS3 & ES6+ JavaScript</strong>.
-            بدون وابستگی به هیچ کتابخانه یا فریم‌ورک خارجی.
+            تمامی حقوق مادی و معنوی این وب‌سایت برای <strong>فروشگاه تخصصی و تحریریه سخت‌افزار ویستا</strong> محفوظ است.
           </p>
           <p class="muted">
-            طراحی‌شده به عنوان مرجع آموزشی معماری Enterprise فرانت‌اند — سال ${toPersianDigits('1405')}
+            تضمین اصالت کالا، هفت روز ضمانت بازگشت وجه و ارسال مطمئن به سراسر ایران — سال ${toPersianDigits('1405')}
           </p>
         </div>
       </div>
@@ -197,6 +196,21 @@ export class Footer extends Component {
       feedbackForm.reset();
     });
 
+    // Keyboard listener: Escape closes trust modal
+    this.listen(document, 'keydown', (e) => {
+      const keyboardEvent = /** @type {KeyboardEvent} */ (e);
+      if (keyboardEvent.key === 'Escape') {
+        this.closeTrustModal();
+      }
+    });
+
+    // Close modal on route navigation
+    this.unsubs.push(
+      this.deps.bus.on('router:navigate', () => {
+        this.closeTrustModal();
+      })
+    );
+
     // Delegated click handler for trust badge modal
     this.listen(this.root, 'click', (e) => {
       const target = /** @type {HTMLElement} */ (e.target);
@@ -204,9 +218,10 @@ export class Footer extends Component {
       if (trustBtn) {
         const badgeType = trustBtn.getAttribute('data-badge');
         this.openTrustModal(badgeType);
+        return;
       }
 
-      if (target.closest('[data-act="close-trust-modal"]')) {
+      if (target.id === 'trust-modal-backdrop' || target.closest('[data-act="close-trust-modal"]')) {
         this.closeTrustModal();
       }
     });
@@ -221,9 +236,9 @@ export class Footer extends Component {
 
     const isEnamad = badgeType === 'enamad';
     box.innerHTML = `
-      <div class="modal-backdrop is-active" data-act="close-trust-modal">
+      <div class="modal-backdrop is-active" id="trust-modal-backdrop">
         <div class="modal-dialog trust-dialog" role="dialog" aria-modal="true" aria-labelledby="trust-dialog-title">
-          <button class="btn btn-icon btn-modal-close" data-act="close-trust-modal">✕</button>
+          <button class="btn btn-icon btn-modal-close" data-act="close-trust-modal" aria-label="بستن پنجره">✕</button>
           <div class="trust-dialog-header">
             <span class="trust-icon-large">${isEnamad ? '🛡️' : '🏛️'}</span>
             <h3 id="trust-dialog-title">
@@ -233,8 +248,7 @@ export class Footer extends Component {
           <div class="trust-dialog-body">
             <div class="trust-detail-row">
               <span class="trust-k">صاحب امتیاز:</span>
-              <strong class="trust-v">شرکت پیشگامان تکنولوژی و تحریریه نوین (سهامی خاص)</strong>
-            </div>
+              <strong class="trust-v">شرکت توسعه فناوری و تجارت الکترونیک ویستا (سهامی خاص)</strong>
             <div class="trust-detail-row">
               <span class="trust-k">شناسه ملی:</span>
               <span class="trust-v">۱۰۱۰۳۴۹۸۲۱</span>
@@ -248,7 +262,7 @@ export class Footer extends Component {
               <span class="trust-v">${jalali(new Date())}</span>
             </div>
             <div class="trust-callout muted text-sm">
-              این پنجره نشان‌دهنده یکپارچگی استانداردهای احراز هویت در وب‌سایت‌های بومی بدون لود اسکریپت‌های ردیاب مسدودکننده است.
+              مجوز فعالیت و گواهی پرداخت شاپرک به صورت برخط و تحت نظارت مرکز توسعه تجارت الکترونیکی صادر شده است.
             </div>
           </div>
           <div class="trust-dialog-footer">
